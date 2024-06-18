@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -95,5 +97,28 @@ fun BoxPreview() {
     Box {
         Text(text = "Texto 1")
         Text(text = "Texto 1")
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun ChallengeComposable() {
+    Row (modifier = Modifier.width(300.dp)
+        .height(150.dp)){
+
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .background(Color.Blue)
+                .width(100.dp)
+        )
+        Column {
+            Text(modifier = Modifier
+                .background(Color.LightGray).padding(16.dp).fillMaxWidth(),
+                text = "Test 1")
+            Text(modifier = Modifier.padding(16.dp).height(80.dp).fillMaxWidth(),
+                text = "Test 2")
+        }
     }
 }
