@@ -7,9 +7,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -22,8 +24,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
 import com.padawanbr.aluvery.ui.theme.Purple40
 import com.padawanbr.aluvery.ui.theme.Purple500
@@ -54,17 +60,33 @@ fun ProdutItem() {
                 .height(100.dp)
                 .background(brush = Brush.horizontalGradient(colors = listOf(Purple500, Teal200)))
                 .fillMaxWidth()
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = "Imagem do produto",
-            Modifier
-                .offset(x = 0.dp, y= (-50).dp)
-                .size(100.dp)
-                .clip(shape = CircleShape)
-                .align(Alignment.CenterHorizontally)
-        )
-        Text(text = "Texto 1")
-        Text(text = "Texto 2")
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_background),
+                contentDescription = "Imagem do produto",
+                Modifier
+                    .size(100.dp)
+                    .offset(x = 0.dp, y = (50).dp)
+                    .clip(shape = CircleShape)
+                    .align(Alignment.BottomCenter)
+            )
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Column(Modifier.padding(16.dp),) {
+            Text(
+                text = LoremIpsum(500).values.first(),
+
+                fontSize = 18.sp,
+                fontWeight = FontWeight(700),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = "R$ 14,99",
+                Modifier.padding(top = 8.dp),
+                fontSize = 14.sp,
+                fontWeight = FontWeight(400),
+            )
+        }
     }
 }
