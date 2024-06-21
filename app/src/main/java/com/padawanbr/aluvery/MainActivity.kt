@@ -83,16 +83,15 @@ fun ProdutItem() {
                     contentDescription = "Imagem do produto",
                     Modifier
                         .size(imageSize)
-                        .offset(x = 0.dp, y = imageSize/2)
+                        .offset(x = 0.dp, y = imageSize / 2)
                         .clip(shape = CircleShape)
                         .align(Alignment.BottomCenter)
                 )
             }
-            Spacer(modifier = Modifier.height(imageSize/2))
+            Spacer(modifier = Modifier.height(imageSize / 2))
             Column(Modifier.padding(16.dp)) {
                 Text(
                     text = LoremIpsum(500).values.first(),
-
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700),
                     maxLines = 2,
