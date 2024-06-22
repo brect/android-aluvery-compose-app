@@ -79,11 +79,9 @@ fun ProductSection() {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-//            Spacer(modifier = Modifier)
             ProdutItem()
             ProdutItem()
             ProdutItem()
-//            Spacer(modifier = Modifier)
         }
     }
 }
