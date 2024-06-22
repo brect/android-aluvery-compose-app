@@ -75,14 +75,15 @@ fun ProductSection() {
                     bottom = 8.dp,
                 )
                 .fillMaxWidth()
-                .horizontalScroll(rememberScrollState()),
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Spacer(modifier = Modifier)
+//            Spacer(modifier = Modifier)
             ProdutItem()
             ProdutItem()
             ProdutItem()
-            Spacer(modifier = Modifier)
+//            Spacer(modifier = Modifier)
         }
     }
 }
