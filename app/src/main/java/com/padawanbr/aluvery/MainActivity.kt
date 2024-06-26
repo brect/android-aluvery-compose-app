@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,10 +38,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.padawanbr.aluvery.extensions.toBrazilianCurrency
+import com.padawanbr.aluvery.model.Product
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
 import com.padawanbr.aluvery.ui.theme.Purple40
 import com.padawanbr.aluvery.ui.theme.Purple500
 import com.padawanbr.aluvery.ui.theme.Teal200
+import java.math.BigDecimal
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +52,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AluveryTheme {
                 Surface {
-                    ProdutItem()
+                    ProductSection()
                 }
             }
         }
@@ -79,15 +83,33 @@ fun ProductSection() {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            ProdutItem()
-            ProdutItem()
-            ProdutItem()
+            ProdutItem(
+                Product(
+                    name = "hamburguer",
+                    image = R.drawable.hamburguer,
+                    price = BigDecimal("12.99")
+                )
+            )
+            ProdutItem(
+                Product(
+                    name = "fritas",
+                    image = R.drawable.fritas,
+                    price = BigDecimal("12.99")
+                )
+            )
+            ProdutItem(
+                Product(
+                    name = "pizza",
+                    image = R.drawable.pizza,
+                    price = BigDecimal("12.99")
+                )
+            )
         }
     }
 }
 
 @Composable
-fun ProdutItem() {
+fun ProdutItem(productItem: Product) {
     Surface(
         shape = RoundedCornerShape(15.dp),
         shadowElevation = 4.dp
@@ -112,26 +134,27 @@ fun ProdutItem() {
                     .fillMaxWidth()
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = painterResource(id = productItem.image),
                     contentDescription = "Imagem do produto",
                     Modifier
                         .size(imageSize)
                         .offset(x = 0.dp, y = imageSize / 2)
                         .clip(shape = CircleShape)
-                        .align(Alignment.BottomCenter)
+                        .align(Alignment.BottomCenter),
+                    contentScale = ContentScale.Crop
                 )
             }
             Spacer(modifier = Modifier.height(imageSize / 2))
             Column(Modifier.padding(16.dp)) {
                 Text(
-                    text = LoremIpsum(500).values.first(),
+                    text = productItem.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700),
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = "R$ 14,99",
+                    text = productItem.price.toBrazilianCurrency(),
                     Modifier.padding(top = 8.dp),
                     fontSize = 14.sp,
                     fontWeight = FontWeight(400),
@@ -144,7 +167,13 @@ fun ProdutItem() {
 @Preview(showBackground = true)
 @Composable
 private fun ProductItemPreview() {
-    ProdutItem()
+    ProdutItem(
+        Product(
+            name = "hamburguer",
+            image = R.drawable.hamburguer,
+            price = BigDecimal("12.99")
+        )
+    )
 }
 
 @Preview(showBackground = true)
