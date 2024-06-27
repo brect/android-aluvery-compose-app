@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.padawanbr.aluvery.extensions.toBrazilianCurrency
 import com.padawanbr.aluvery.model.Product
 import com.padawanbr.aluvery.R
@@ -52,16 +53,16 @@ fun ProductItem(product: Product) {
                     )
                     .fillMaxWidth()
             ) {
-                Image(
-                    // TODO: ajustar imagem do produto
-                    painter = painterResource(id = R.drawable.placeholder),
+                AsyncImage(
+                    model = product.image,
                     contentDescription = null,
                     Modifier
                         .size(imageSize)
                         .offset(y = imageSize / 2)
                         .clip(shape = CircleShape)
                         .align(Alignment.BottomCenter),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.placeholder)
                 )
             }
             Spacer(modifier = Modifier.height(imageSize / 2))
