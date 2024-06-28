@@ -47,9 +47,7 @@ fun HomeScreen(
             },
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp
+                    16.dp
                 )
                 .fillMaxWidth(),
             shape = RoundedCornerShape(25),
@@ -68,11 +66,13 @@ fun HomeScreen(
             Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(vertical = 16.dp)
+            contentPadding = PaddingValues(bottom = 16.dp)
         ) {
 
-            items(sampleProducts) { p->
-                CardProductItem(product = p)
+            items(sampleProducts) { p ->
+                CardProductItem(
+                    product = p, Modifier.padding(horizontal = 16.dp)
+                )
             }
 //            for (section in sections) {
 //                val title = section.key
