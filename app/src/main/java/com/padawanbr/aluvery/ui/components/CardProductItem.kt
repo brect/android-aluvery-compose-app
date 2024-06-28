@@ -60,12 +60,15 @@ fun CardProductItem(
                     text = product.price.toBrazilianCurrency()
                 )
             }
-            // TODO: adicionar descrição do produto
-            // Text(
-            //     text = product.description,
-            //     Modifier
-            //         .padding(16.dp)
-            // )
+
+            product.description?.let {
+                Text(
+                    text = it,
+                    Modifier
+                        .padding(16.dp)
+                )
+            }
+
         }
     }
 }
@@ -77,6 +80,19 @@ private fun CardProductItemPreview() {
         Surface {
             CardProductItem(
                 product = sampleProducts.random(),
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+private fun CardProductItemWithDescriptionPreview() {
+    AluveryTheme {
+        Surface {
+            CardProductItem(
+                product = sampleProducts[1],
             )
         }
     }
