@@ -34,12 +34,13 @@ import com.padawanbr.aluvery.ui.theme.AluveryTheme
 
 @Composable
 fun HomeScreen(
-    sections: Map<String, List<Product>>
+    sections: Map<String, List<Product>>,
+    searchTexto: String = ""
 ) {
     Column {
 
         var text by remember {
-            mutableStateOf("")
+            mutableStateOf(searchTexto)
         }
 
         OutlinedTextField(
@@ -70,23 +71,24 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-
-            items(sampleProducts) { p ->
-                CardProductItem(
-                    product = p, Modifier.padding(horizontal = 16.dp)
-                )
+            if (text.isBlank()) {
+                for (section in sections) {
+                    val title = section.key
+                    val products = section.value
+                    item {
+                        ProductsSection(
+                            title = title,
+                            products = products
+                        )
+                    }
+                }
+            } else {
+                items(sampleProducts) { p ->
+                    CardProductItem(
+                        product = p, Modifier.padding(horizontal = 16.dp)
+                    )
+                }
             }
-//            for (section in sections) {
-//                val title = section.key
-//                val products = section.value
-//                item {
-//                    ProductsSection(
-//                        title = title,
-//                        products = products
-//                    )
-//                }
-//            }
-
         }
     }
 
@@ -99,6 +101,19 @@ private fun HomeScreenPreview() {
     AluveryTheme {
         Surface {
             HomeScreen(sampleSections)
+        }
+    }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+private fun HomeScreenWithSearchTextPreview() {
+    AluveryTheme {
+        Surface {
+            HomeScreen(
+                sampleSections,
+                "Hamburguer"
+            )
         }
     }
 }
