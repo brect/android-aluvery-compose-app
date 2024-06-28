@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import com.padawanbr.aluvery.sampledata.sampleProducts
-import com.padawanbr.aluvery.ui.screens.AllProductsScreen
+import com.padawanbr.aluvery.sampledata.sampleSections
+import com.padawanbr.aluvery.ui.screens.HomeScreen
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +23,9 @@ class MainActivity : ComponentActivity() {
 fun App() {
     AluveryTheme {
         Surface {
-//            HomeScreen(
-//                sampleSections
-//            )
-
-            AllProductsScreen(sampleProducts)
+            HomeScreen(
+                sampleSections
+            )
         }
     }
 }
