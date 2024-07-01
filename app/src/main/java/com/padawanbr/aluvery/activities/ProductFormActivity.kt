@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -23,7 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.padawanbr.aluvery.model.Product
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
+import java.math.BigDecimal
 
 class ProductFormActivity : ComponentActivity() {
 
@@ -100,14 +101,28 @@ fun ProductFormScreen() {
         TextField(value = description, onValueChange = {
             description = it
         },
-            modifier = Modifier.fillMaxWidth().heightIn(min = 100.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 100.dp),
             label = {
                 Text(text = "Descrição")
             }
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = {
+                val convertedPrice = try {
+                    BigDecimal(price)
+                } catch (ex: NumberFormatException) {
+                    BigDecimal.ZERO
+                }
+                val product = Product(
+                    name = name,
+                    image = url,
+                    price = convertedPrice,
+                    description = description
+                )
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Salvar")
