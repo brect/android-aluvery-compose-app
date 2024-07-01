@@ -80,7 +80,6 @@ fun ProductFormScreen() {
             }
         )
 
-
         var price by remember {
             mutableStateOf("")
         }
