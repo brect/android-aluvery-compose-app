@@ -1,4 +1,4 @@
-package com.padawanbr.aluvery
+package com.padawanbr.aluvery.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
