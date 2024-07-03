@@ -103,8 +103,7 @@ class ProductFormActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text(text = "Url da imagem") },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Uri,
-                    imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Uri, imeAction = ImeAction.Next
                 )
             )
 
@@ -113,19 +112,15 @@ class ProductFormActivity : ComponentActivity() {
                 mutableStateOf("")
             }
 
-            TextField(
-                value = name, onValueChange = {
-                    name = it
-                },
-                modifier = Modifier.fillMaxWidth(),
-                label = {
-                    Text(text = "Nome")
-                },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next,
-                    capitalization = KeyboardCapitalization.Words
-                )
+            TextField(value = name, onValueChange = {
+                name = it
+            }, modifier = Modifier.fillMaxWidth(), label = {
+                Text(text = "Nome")
+            }, keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next,
+                capitalization = KeyboardCapitalization.Words
+            )
             )
 
             var price by remember {
@@ -136,31 +131,20 @@ class ProductFormActivity : ComponentActivity() {
                 mutableStateOf(false)
             }
 
-            val decimalFormatter = remember {
-                DecimalFormat("#.##")
-            }
-
             Column {
-                TextField(
-                    value = price,
-                    onValueChange = {
-                        isPriceError = try {
-                            BigDecimal(it)
-                            false
-                        } catch (e: IllegalArgumentException) {
-                            it.isNotEmpty()
-                        }
-                        price = it
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    isError = isPriceError,
-                    label = {
-                        Text(text = "Preço")
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Decimal,
-                        imeAction = ImeAction.Next
-                    )
+                TextField(value = price, onValueChange = {
+                    isPriceError = try {
+                        BigDecimal(it)
+                        false
+                    } catch (e: IllegalArgumentException) {
+                        it.isNotEmpty()
+                    }
+                    price = it
+                }, modifier = Modifier.fillMaxWidth(), isError = isPriceError, label = {
+                    Text(text = "Preço")
+                }, keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next
+                )
                 )
                 if (isPriceError) {
                     Text(
@@ -179,14 +163,11 @@ class ProductFormActivity : ComponentActivity() {
             TextField(
                 value = description, onValueChange = {
                     description = it
-                },
-                modifier = Modifier
+                }, modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 100.dp),
-                label = {
+                    .heightIn(min = 100.dp), label = {
                     Text(text = "Descrição")
-                },
-                keyboardOptions = KeyboardOptions(
+                }, keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next,
                     capitalization = KeyboardCapitalization.Sentences
