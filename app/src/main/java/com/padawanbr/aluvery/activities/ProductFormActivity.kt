@@ -39,7 +39,6 @@ import com.padawanbr.aluvery.dao.ProductDao
 import com.padawanbr.aluvery.model.Product
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
 import java.math.BigDecimal
-import java.text.DecimalFormat
 
 class ProductFormActivity : ComponentActivity() {
 
