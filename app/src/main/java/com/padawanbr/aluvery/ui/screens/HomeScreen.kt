@@ -24,13 +24,9 @@ import com.padawanbr.aluvery.ui.theme.AluveryTheme
 @Composable
 fun HomeScreen(
     sections: Map<String, List<Product>>,
-    searchText: String = ""
+    state: HomeScreenUiState =  HomeScreenUiState()
 ) {
     Column {
-
-        val state = remember {
-            HomeScreenUiState(searchText)
-        }
 
         val text = state.text
 
@@ -41,7 +37,7 @@ fun HomeScreen(
         SearchTextField(
             searchText = text,
             onSearchTextChange = {
-                state.text = it
+                state.onSearchChange
             })
 
         LazyColumn(
@@ -70,9 +66,7 @@ fun HomeScreen(
             }
         }
     }
-
 }
-
 
 @Preview(showSystemUi = true)
 @Composable
@@ -91,7 +85,7 @@ private fun HomeScreenWithSearchTextPreview() {
         Surface {
             HomeScreen(
                 sampleSections,
-                "Hamburguer"
+                state = HomeScreenUiState("Hamburguer")
             )
         }
     }

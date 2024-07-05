@@ -8,6 +8,7 @@ import com.padawanbr.aluvery.sampledata.sampleProducts
 class HomeScreenUiState(searchText: String = "") {
 
     var text by mutableStateOf(searchText)
+        private set
 
     val searchedProducts get() =  if (text.isNotBlank()) {
         sampleProducts.filter { product ->
@@ -18,6 +19,10 @@ class HomeScreenUiState(searchText: String = "") {
 
     fun isShowSection(): Boolean {
         return text.isBlank()
+    }
+
+    val onSearchChange: (String) -> Unit = {
+
     }
 
 }
