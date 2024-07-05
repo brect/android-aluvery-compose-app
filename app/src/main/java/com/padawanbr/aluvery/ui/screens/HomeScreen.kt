@@ -9,19 +9,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.padawanbr.aluvery.model.Product
-import com.padawanbr.aluvery.sampledata.sampleProducts
 import com.padawanbr.aluvery.sampledata.sampleSections
 import com.padawanbr.aluvery.ui.components.CardProductItem
 import com.padawanbr.aluvery.ui.components.ProductsSection
 import com.padawanbr.aluvery.ui.components.SearchTextField
+import com.padawanbr.aluvery.ui.states.HomeScreenUiState
 import com.padawanbr.aluvery.ui.theme.AluveryTheme
 
 @Composable
@@ -30,15 +27,22 @@ fun HomeScreen(
     searchText: String = ""
 ) {
     Column {
-        var text by remember {
-            mutableStateOf(searchText)
+
+        val state = remember {
+            HomeScreenUiState(searchText)
         }
 
-        SearchTextField(searchText = text, onSearchTextChange = {
-            text = it
-        })
+        val text = state.text
 
-        val searchedProducts = filterProductList(text)
+        val searchProducts = remember(text) {
+            state.searchedProducts
+        }
+
+        SearchTextField(
+            searchText = text,
+            onSearchTextChange = {
+                state.text = it
+            })
 
         LazyColumn(
             Modifier
@@ -46,7 +50,7 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-            if (text.isBlank()) {
+            if (state.isShowSection()) {
                 for (section in sections) {
                     val title = section.key
                     val products = section.value
@@ -58,7 +62,7 @@ fun HomeScreen(
                     }
                 }
             } else {
-                items(searchedProducts) { p ->
+                items(searchProducts) { p ->
                     CardProductItem(
                         product = p, Modifier.padding(horizontal = 16.dp)
                     )
@@ -67,16 +71,6 @@ fun HomeScreen(
         }
     }
 
-}
-
-@Composable
-private fun filterProductList(text: String) = remember(text) {
-    if (text.isNotBlank()) {
-        sampleProducts.filter { product ->
-            product.name.contains(text, ignoreCase = true) ||
-                    product.description?.contains(text, ignoreCase = true) ?: false
-        }
-    } else emptyList()
 }
 
 
