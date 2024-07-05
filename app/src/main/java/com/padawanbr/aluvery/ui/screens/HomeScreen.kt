@@ -13,7 +13,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.padawanbr.aluvery.model.Product
 import com.padawanbr.aluvery.sampledata.sampleSections
 import com.padawanbr.aluvery.ui.components.CardProductItem
 import com.padawanbr.aluvery.ui.components.ProductsSection
@@ -23,11 +22,10 @@ import com.padawanbr.aluvery.ui.theme.AluveryTheme
 
 @Composable
 fun HomeScreen(
-    sections: Map<String, List<Product>>,
-    state: HomeScreenUiState =  HomeScreenUiState()
+    state: HomeScreenUiState = HomeScreenUiState()
 ) {
     Column {
-
+        val sections = state.sections
         val text = state.text
 
         val searchProducts = remember(text) {
@@ -36,9 +34,8 @@ fun HomeScreen(
 
         SearchTextField(
             searchText = text,
-            onSearchTextChange = {
-                state.onSearchChange
-            })
+            onSearchTextChange = state.onSearchChange
+        )
 
         LazyColumn(
             Modifier
@@ -73,7 +70,7 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     AluveryTheme {
         Surface {
-            HomeScreen(sampleSections)
+            HomeScreen(HomeScreenUiState(sampleSections))
         }
     }
 }
@@ -84,8 +81,10 @@ private fun HomeScreenWithSearchTextPreview() {
     AluveryTheme {
         Surface {
             HomeScreen(
-                sampleSections,
-                state = HomeScreenUiState("Hamburguer")
+                HomeScreenUiState(
+                    sections = sampleSections,
+                    searchText = "Hamburguer"
+                )
             )
         }
     }
