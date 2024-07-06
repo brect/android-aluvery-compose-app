@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,11 +25,8 @@ fun HomeScreen(
 ) {
     Column {
         val sections = state.sections
-        val text = state.text
-
-        val searchProducts = remember(text) {
-            state.searchedProducts
-        }
+        val text = state.searchText
+        val searchProducts =  state.searchedProducts
 
         SearchTextField(
             searchText = text,

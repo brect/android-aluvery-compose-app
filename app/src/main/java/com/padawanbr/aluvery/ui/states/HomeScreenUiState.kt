@@ -1,40 +1,15 @@
 package com.padawanbr.aluvery.ui.states
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import com.padawanbr.aluvery.model.Product
-import com.padawanbr.aluvery.sampledata.sampleProducts
 
 class HomeScreenUiState(
     val sections: Map<String, List<Product>> = emptyMap(),
-    searchText: String = ""
+    val searchedProducts: List<Product> = emptyList(),
+    val searchText: String = "",
+    val onSearchChange: (String) -> Unit = {}
 ) {
 
-    var text by mutableStateOf(searchText)
-        private set
-
-    val searchedProducts
-        get() =
-            if (text.isNotBlank()) {
-                sampleProducts.filter { product ->
-                    product.name.contains(
-                        text,
-                        ignoreCase = true,
-                    ) ||
-                            product.description?.contains(
-                                text,
-                                ignoreCase = true,
-                            ) ?: false
-                }
-            } else emptyList()
-
     fun isShowSection(): Boolean {
-        return text.isBlank()
+        return searchText.isBlank()
     }
-
-    val onSearchChange: (String) -> Unit = { searchText ->
-        text = searchText
-    }
-
 }
