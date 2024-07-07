@@ -36,16 +36,16 @@ fun CardProductItem(
     product: Product,
     modifier: Modifier = Modifier,
     elevation: Dp = 4.dp,
-    expanded: Boolean = false
+    isExpanded: Boolean = false
 ) {
 
-    var isExpanded by rememberSaveable { mutableStateOf(expanded) }
+    var expanded by rememberSaveable { mutableStateOf(isExpanded) }
 
     Card(
         modifier
             .fillMaxWidth()
             .heightIn(150.dp)
-            .clickable { isExpanded = !isExpanded },
+            .clickable { expanded = !expanded },
         elevation = elevation
     ) {
         Column {
@@ -72,16 +72,15 @@ fun CardProductItem(
                 )
             }
 
-            product.description?.let {
-                Text(
-                    text = it,
-                    Modifier
-                        .padding(16.dp),
-                    overflow = if (isExpanded) TextOverflow.Visible else TextOverflow.Ellipsis,
-                    maxLines = if (isExpanded) Int.MAX_VALUE else 2
-                )
+            if(isExpanded) {
+                product.description?.let {
+                    Text(
+                        text = it,
+                        Modifier
+                            .padding(16.dp)
+                    )
+                }
             }
-
         }
     }
 }
@@ -118,7 +117,7 @@ private fun CardProductItemWithDescriptionExpendedPreview() {
         Surface {
             CardProductItem(
                 product = sampleProducts[2],
-                expanded = true,
+                isExpanded = true,
             )
         }
     }
