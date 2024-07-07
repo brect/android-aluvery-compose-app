@@ -36,16 +36,16 @@ fun CardProductItem(
     product: Product,
     modifier: Modifier = Modifier,
     elevation: Dp = 4.dp,
-    isExpanded: Boolean = false
+    expanded: Boolean = false
 ) {
 
-    var expanded by rememberSaveable { mutableStateOf(isExpanded) }
+    var isExpanded by rememberSaveable { mutableStateOf(expanded) }
 
     Card(
         modifier
             .fillMaxWidth()
             .heightIn(150.dp)
-            .clickable { expanded = !expanded },
+            .clickable { isExpanded = !isExpanded },
         elevation = elevation
     ) {
         Column {
@@ -77,10 +77,12 @@ fun CardProductItem(
                     Text(
                         text = it,
                         Modifier
-                            .padding(16.dp)
+                            .padding(16.dp),
                     )
                 }
             }
+
+
         }
     }
 }
@@ -117,7 +119,7 @@ private fun CardProductItemWithDescriptionExpendedPreview() {
         Surface {
             CardProductItem(
                 product = sampleProducts[2],
-                isExpanded = true,
+                expanded = true,
             )
         }
     }
