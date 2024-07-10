@@ -2,7 +2,7 @@ package com.padawanbr.aluvery.ui.states
 
 import com.padawanbr.aluvery.model.Product
 
-class HomeScreenUiState(
+data class HomeScreenUiState(
     val sections: Map<String, List<Product>> = emptyMap(),
     val searchedProducts: List<Product> = emptyList(),
     val searchText: String = "",
