@@ -25,76 +25,76 @@ import com.padawanbr.aluvery.ui.viewmodels.HomeScreenViewModel
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel
+  viewModel: HomeScreenViewModel
 ) {
-    val state by viewModel.uiState.collectAsState()
+  val state by viewModel.uiState.collectAsState()
 
-    HomeScreen(state)
+  HomeScreen(state)
 }
 
 @Composable
 fun HomeScreen(
-    state: HomeScreenUiState = HomeScreenUiState()
+  state: HomeScreenUiState = HomeScreenUiState()
 ) {
-    Column {
-        val sections = state.sections
-        val text = state.searchText
-        val searchProducts = state.searchedProducts
+  Column {
+    val sections = state.sections
+    val text = state.searchText
+    val searchProducts = state.searchedProducts
 
-        SearchTextField(
-            searchText = text,
-            onSearchTextChange = state.onSearchChange
-        )
+    SearchTextField(
+      searchText = text,
+      onSearchTextChange = state.onSearchChange
+    )
 
-        LazyColumn(
-            Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(bottom = 16.dp)
-        ) {
-            if (state.isShowSection()) {
-                for (section in sections) {
-                    val title = section.key
-                    val products = section.value
-                    item {
-                        ProductsSection(
-                            title = title,
-                            products = products
-                        )
-                    }
-                }
-            } else {
-                items(searchProducts) { p ->
-                    CardProductItem(
-                        product = p, Modifier.padding(horizontal = 16.dp)
-                    )
-                }
-            }
+    LazyColumn(
+      Modifier
+        .fillMaxSize(),
+      verticalArrangement = Arrangement.spacedBy(16.dp),
+      contentPadding = PaddingValues(bottom = 16.dp)
+    ) {
+      if (state.isShowSection()) {
+        for (section in sections) {
+          val title = section.key
+          val products = section.value
+          item {
+            ProductsSection(
+              title = title,
+              products = products
+            )
+          }
         }
+      } else {
+        items(searchProducts) { p ->
+          CardProductItem(
+            product = p, Modifier.padding(horizontal = 16.dp)
+          )
+        }
+      }
     }
+  }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenPreview() {
-    AluveryTheme {
-        Surface {
-            HomeScreen(HomeScreenUiState(sampleSections))
-        }
+  AluveryTheme {
+    Surface {
+      HomeScreen(HomeScreenUiState(sampleSections))
     }
+  }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenWithSearchTextPreview() {
-    AluveryTheme {
-        Surface {
-            HomeScreen(
-                HomeScreenUiState(
-                    sections = sampleSections,
-                    searchText = "Hamburguer"
-                )
-            )
-        }
+  AluveryTheme {
+    Surface {
+      HomeScreen(
+        HomeScreenUiState(
+          sections = sampleSections,
+          searchText = "Hamburguer"
+        )
+      )
     }
+  }
 }

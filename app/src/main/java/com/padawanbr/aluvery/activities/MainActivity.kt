@@ -24,56 +24,56 @@ import com.padawanbr.aluvery.ui.viewmodels.HomeScreenViewModel
 
 class MainActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            App(onFabClick = {
-                startActivity(
-                    Intent(
-                        this,
-                        ProductFormActivity::class.java
-                    )
-                )
-            }) {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      App(onFabClick = {
+        startActivity(
+          Intent(
+            this,
+            ProductFormActivity::class.java
+          )
+        )
+      }) {
 
-                val viewModel by viewModels<HomeScreenViewModel>()
-                HomeScreen(
-                    viewModel = viewModel
-                )
-            }
-        }
+        val viewModel by viewModels<HomeScreenViewModel>()
+        HomeScreen(
+          viewModel = viewModel
+        )
+      }
     }
+  }
 }
 
 @Composable
 fun App(
-    onFabClick: () -> Unit = {},
-    content: @Composable () -> Unit = {}
+  onFabClick: () -> Unit = {},
+  content: @Composable () -> Unit = {}
 ) {
-    AluveryTheme {
-        Surface {
-            Scaffold(floatingActionButton = {
-                FloatingActionButton(onClick = onFabClick) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Botão adicionar produto"
-                    )
-                }
-            }) { paddingValues ->
-                Box(modifier = Modifier.padding(paddingValues)) {
-                    content()
-                }
-            }
+  AluveryTheme {
+    Surface {
+      Scaffold(floatingActionButton = {
+        FloatingActionButton(onClick = onFabClick) {
+          Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "Botão adicionar produto"
+          )
         }
+      }) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) {
+          content()
+        }
+      }
     }
+  }
 }
 
 @Preview
 @Composable
 fun AppPreview() {
-    App {
-        HomeScreen(
-            HomeScreenUiState(sections = sampleSections)
-        )
-    }
+  App {
+    HomeScreen(
+      HomeScreenUiState(sections = sampleSections)
+    )
+  }
 }
