@@ -1,6 +1,6 @@
 package com.padawanbr.aluvery.ui.states
 
-class ProductFormUiState(
+data class ProductFormUiState(
     val url: String = "",
     val name: String = "",
     val price: String = "",
